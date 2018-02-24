@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Dermasoft_ProModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alergias">
+          <Key>
+            <PropertyRef Name="IdAlergia" />
+          </Key>
+          <Property Name="IdAlergia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPaciente" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Antecedentes">
+          <Key>
+            <PropertyRef Name="IdAntecedente" />
+          </Key>
+          <Property Name="IdAntecedente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPaciente" Type="int" Nullable="false" />
+          <Property Name="Descipcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArchivoImagen">
+          <Key>
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreArchivo" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IdVisita" Type="int" Nullable="false" />
+          <Property Name="Extension" Type="varchar" MaxLength="10" />
+          <Property Name="ContentType" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MotivoConsultas">
+          <Key>
+            <PropertyRef Name="IdMotivoConsulta" />
+          </Key>
+          <Property Name="IdMotivoConsulta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MotivoConsulta" Type="varchar" MaxLength="200" />
+          <Property Name="AntecedentesEA" Type="varchar(max)" />
+          <Property Name="IdPaciente" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notas">
+          <Key>
+            <PropertyRef Name="IdNota" />
+          </Key>
+          <Property Name="IdNota" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVisita" Type="int" Nullable="false" />
+          <Property Name="IdTipoNota" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObraSocial">
+          <Key>
+            <PropertyRef Name="IdObraSocial" />
+          </Key>
+          <Property Name="IdObraSocial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreObraSocial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pacientes">
+          <Key>
+            <PropertyRef Name="IdPaciente" />
+          </Key>
+          <Property Name="IdPaciente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
+          <Property Name="Dni" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+          <Property Name="IdObraSocial" Type="int" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NroAfiliado" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoNota">
+          <Key>
+            <PropertyRef Name="idTipoNota" />
+          </Key>
+          <Property Name="idTipoNota" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ApellidoUsuario" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contrasenia" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Visitas">
+          <Key>
+            <PropertyRef Name="IdVisita" />
+          </Key>
+          <Property Name="IdVisita" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaVisita" Type="datetime" Nullable="false" />
+          <Property Name="IdMotivoConsulta" Type="int" />
+        </EntityType>
+        <Association Name="FK_Alergias_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Alergias" Type="Self.Alergias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="IdPaciente" />
+            </Principal>
+            <Dependent Role="Alergias">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Antecedentes_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Antecedentes" Type="Self.Antecedentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="IdPaciente" />
+            </Principal>
+            <Dependent Role="Antecedentes">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArchivoImagen_Visitas">
+          <End Role="Visitas" Type="Self.Visitas" Multiplicity="1" />
+          <End Role="ArchivoImagen" Type="Self.ArchivoImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitas">
+              <PropertyRef Name="IdVisita" />
+            </Principal>
+            <Dependent Role="ArchivoImagen">
+              <PropertyRef Name="IdVisita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MotivoConsultas_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="MotivoConsultas" Type="Self.MotivoConsultas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="IdPaciente" />
+            </Principal>
+            <Dependent Role="MotivoConsultas">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notas_TipoNota">
+          <End Role="TipoNota" Type="Self.TipoNota" Multiplicity="1" />
+          <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoNota">
+              <PropertyRef Name="idTipoNota" />
+            </Principal>
+            <Dependent Role="Notas">
+              <PropertyRef Name="IdTipoNota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notas_Visitas1">
+          <End Role="Visitas" Type="Self.Visitas" Multiplicity="1" />
+          <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitas">
+              <PropertyRef Name="IdVisita" />
+            </Principal>
+            <Dependent Role="Notas">
+              <PropertyRef Name="IdVisita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pacientes_Obra">
+          <End Role="ObraSocial" Type="Self.ObraSocial" Multiplicity="1" />
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObraSocial">
+              <PropertyRef Name="IdObraSocial" />
+            </Principal>
+            <Dependent Role="Pacientes">
+              <PropertyRef Name="IdObraSocial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visitas_MotivoConsultas">
+          <End Role="MotivoConsultas" Type="Self.MotivoConsultas" Multiplicity="0..1" />
+          <End Role="Visitas" Type="Self.Visitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotivoConsultas">
+              <PropertyRef Name="IdMotivoConsulta" />
+            </Principal>
+            <Dependent Role="Visitas">
+              <PropertyRef Name="IdMotivoConsulta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Dermasoft_ProModelStoreContainer">
+          <EntitySet Name="Alergias" EntityType="Self.Alergias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArchivoImagen" EntityType="Self.ArchivoImagen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MotivoConsultas" EntityType="Self.MotivoConsultas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notas" EntityType="Self.Notas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObraSocial" EntityType="Self.ObraSocial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pacientes" EntityType="Self.Pacientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoNota" EntityType="Self.TipoNota" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visitas" EntityType="Self.Visitas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Alergias_Pacientes" Association="Self.FK_Alergias_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Alergias" EntitySet="Alergias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Antecedentes_Pacientes" Association="Self.FK_Antecedentes_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Antecedentes" EntitySet="Antecedentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArchivoImagen_Visitas" Association="Self.FK_ArchivoImagen_Visitas">
+            <End Role="Visitas" EntitySet="Visitas" />
+            <End Role="ArchivoImagen" EntitySet="ArchivoImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MotivoConsultas_Pacientes" Association="Self.FK_MotivoConsultas_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="MotivoConsultas" EntitySet="MotivoConsultas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notas_TipoNota" Association="Self.FK_Notas_TipoNota">
+            <End Role="TipoNota" EntitySet="TipoNota" />
+            <End Role="Notas" EntitySet="Notas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notas_Visitas1" Association="Self.FK_Notas_Visitas1">
+            <End Role="Visitas" EntitySet="Visitas" />
+            <End Role="Notas" EntitySet="Notas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pacientes_Obra" Association="Self.FK_Pacientes_Obra">
+            <End Role="ObraSocial" EntitySet="ObraSocial" />
+            <End Role="Pacientes" EntitySet="Pacientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visitas_MotivoConsultas" Association="Self.FK_Visitas_MotivoConsultas">
+            <End Role="MotivoConsultas" EntitySet="MotivoConsultas" />
+            <End Role="Visitas" EntitySet="Visitas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Dermasoft_ProModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DermasoftEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ObraSocials" EntityType="Dermasoft_ProModel.ObraSocial" />
+          <EntitySet Name="Rols" EntityType="Dermasoft_ProModel.Rol" />
+          <EntitySet Name="Usuarios" EntityType="Dermasoft_ProModel.Usuario" />
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Dermasoft_ProModel.FK_Usuarios_Roles">
+            <End Role="Role" EntitySet="Rols" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <EntitySet Name="ArchivoImagens" EntityType="Dermasoft_ProModel.ArchivoImagen" />
+          <EntitySet Name="Alergias" EntityType="Dermasoft_ProModel.Alergia" />
+          <EntitySet Name="TipoNota" EntityType="Dermasoft_ProModel.TipoNota" />
+          <EntitySet Name="Antecedentes" EntityType="Dermasoft_ProModel.Antecedente" />
+          <EntitySet Name="Notas" EntityType="Dermasoft_ProModel.Nota" />
+          <EntitySet Name="Visitas" EntityType="Dermasoft_ProModel.Visita" />
+          <AssociationSet Name="FK_ArchivoImagen_Visitas" Association="Dermasoft_ProModel.FK_ArchivoImagen_Visitas">
+            <End Role="Visitas" EntitySet="Visitas" />
+            <End Role="ArchivoImagen" EntitySet="ArchivoImagens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notas_TipoNota" Association="Dermasoft_ProModel.FK_Notas_TipoNota">
+            <End Role="TipoNota" EntitySet="TipoNota" />
+            <End Role="Notas" EntitySet="Notas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notas_Visitas" Association="Dermasoft_ProModel.FK_Notas_Visitas">
+            <End Role="Visitas" EntitySet="Visitas" />
+            <End Role="Notas" EntitySet="Notas" />
+          </AssociationSet>
+          <EntitySet Name="MotivoConsultas" EntityType="Dermasoft_ProModel.MotivoConsulta" />
+          <AssociationSet Name="FK_Visitas_MotivoConsultas" Association="Dermasoft_ProModel.FK_Visitas_MotivoConsultas">
+            <End Role="MotivoConsultas" EntitySet="MotivoConsultas" />
+            <End Role="Visita" EntitySet="Visitas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notas_Visitas1" Association="Dermasoft_ProModel.FK_Notas_Visitas1">
+            <End Role="Visita" EntitySet="Visitas" />
+            <End Role="Nota" EntitySet="Notas" />
+          </AssociationSet>
+          <EntitySet Name="Pacientes" EntityType="Dermasoft_ProModel.Paciente" />
+          <AssociationSet Name="FK_Alergias_Pacientes" Association="Dermasoft_ProModel.FK_Alergias_Pacientes">
+            <End Role="Paciente" EntitySet="Pacientes" />
+            <End Role="Alergia" EntitySet="Alergias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Antecedentes_Pacientes" Association="Dermasoft_ProModel.FK_Antecedentes_Pacientes">
+            <End Role="Paciente" EntitySet="Pacientes" />
+            <End Role="Antecedente" EntitySet="Antecedentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MotivoConsultas_Pacientes" Association="Dermasoft_ProModel.FK_MotivoConsultas_Pacientes">
+            <End Role="Paciente" EntitySet="Pacientes" />
+            <End Role="MotivoConsulta" EntitySet="MotivoConsultas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pacientes_Obra" Association="Dermasoft_ProModel.FK_Pacientes_Obra">
+            <End Role="ObraSocial" EntitySet="ObraSocials" />
+            <End Role="Paciente" EntitySet="Pacientes" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ObraSocial">
+          <Key>
+            <PropertyRef Name="IdObraSocial" />
+          </Key>
+          <Property Name="IdObraSocial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreObraSocial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pacientes" Relationship="Dermasoft_ProModel.FK_Pacientes_Obra" FromRole="ObraSocial" ToRole="Paciente" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Dermasoft_ProModel.FK_Usuarios_Roles" FromRole="Role" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoUsuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Dermasoft_ProModel.FK_Usuarios_Roles" FromRole="Usuario" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Usuarios_Roles">
+          <End Type="Dermasoft_ProModel.Rol" Role="Role" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ArchivoImagen">
+          <Key>
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreArchivo" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdVisita" Type="Int32" Nullable="false" />
+          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Visitas" Relationship="Dermasoft_ProModel.FK_ArchivoImagen_Visitas" FromRole="ArchivoImagen" ToRole="Visitas" />
+        </EntityType>
+        <EntityType Name="Alergia">
+          <Key>
+            <PropertyRef Name="IdAlergia" />
+          </Key>
+          <Property Name="IdAlergia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Paciente" Relationship="Dermasoft_ProModel.FK_Alergias_Pacientes" FromRole="Alergia" ToRole="Paciente" />
+        </EntityType>
+        <EntityType Name="TipoNota">
+          <Key>
+            <PropertyRef Name="idTipoNota" />
+          </Key>
+          <Property Name="idTipoNota" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Notas" Relationship="Dermasoft_ProModel.FK_Notas_TipoNota" FromRole="TipoNota" ToRole="Notas" />
+        </EntityType>
+        <EntityType Name="Antecedente">
+          <Key>
+            <PropertyRef Name="IdAntecedente" />
+          </Key>
+          <Property Name="IdAntecedente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+          <Property Name="Descipcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Paciente" Relationship="Dermasoft_ProModel.FK_Antecedentes_Pacientes" FromRole="Antecedente" ToRole="Paciente" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="IdNota" />
+          </Key>
+          <Property Name="IdNota" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVisita" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoNota" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoNota" Relationship="Dermasoft_ProModel.FK_Notas_TipoNota" FromRole="Notas" ToRole="TipoNota" />
+          <NavigationProperty Name="Visitas" Relationship="Dermasoft_ProModel.FK_Notas_Visitas" FromRole="Notas" ToRole="Visitas" />
+          <NavigationProperty Name="Visitas1" Relationship="Dermasoft_ProModel.FK_Notas_Visitas1" FromRole="Nota" ToRole="Visita" />
+        </EntityType>
+        <EntityType Name="Visita">
+          <Key>
+            <PropertyRef Name="IdVisita" />
+          </Key>
+          <Property Name="IdVisita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaVisita" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdMotivoConsulta" Type="Int32" />
+          <NavigationProperty Name="ArchivoImagen" Relationship="Dermasoft_ProModel.FK_ArchivoImagen_Visitas" FromRole="Visitas" ToRole="ArchivoImagen" />
+          <NavigationProperty Name="Notas" Relationship="Dermasoft_ProModel.FK_Notas_Visitas" FromRole="Visitas" ToRole="Notas" />
+          <NavigationProperty Name="MotivoConsultas" Relationship="Dermasoft_ProModel.FK_Visitas_MotivoConsultas" FromRole="Visita" ToRole="MotivoConsultas" />
+          <NavigationProperty Name="Notas1" Relationship="Dermasoft_ProModel.FK_Notas_Visitas1" FromRole="Visita" ToRole="Nota" />
+        </EntityType>
+        <Association Name="FK_ArchivoImagen_Visitas">
+          <End Type="Dermasoft_ProModel.Visita" Role="Visitas" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.ArchivoImagen" Role="ArchivoImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitas">
+              <PropertyRef Name="IdVisita" />
+            </Principal>
+            <Dependent Role="ArchivoImagen">
+              <PropertyRef Name="IdVisita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notas_TipoNota">
+          <End Type="Dermasoft_ProModel.TipoNota" Role="TipoNota" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Nota" Role="Notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoNota">
+              <PropertyRef Name="idTipoNota" />
+            </Principal>
+            <Dependent Role="Notas">
+              <PropertyRef Name="IdTipoNota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notas_Visitas">
+          <End Type="Dermasoft_ProModel.Visita" Role="Visitas" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Nota" Role="Notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitas">
+              <PropertyRef Name="IdVisita" />
+            </Principal>
+            <Dependent Role="Notas">
+              <PropertyRef Name="IdTipoNota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MotivoConsulta">
+          <Key>
+            <PropertyRef Name="IdMotivoConsulta" />
+          </Key>
+          <Property Name="IdMotivoConsulta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MotivoConsulta1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AntecedentesEA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Visitas" Relationship="Dermasoft_ProModel.FK_Visitas_MotivoConsultas" FromRole="MotivoConsultas" ToRole="Visita" />
+          <NavigationProperty Name="Paciente" Relationship="Dermasoft_ProModel.FK_MotivoConsultas_Pacientes" FromRole="MotivoConsulta" ToRole="Paciente" />
+        </EntityType>
+        <Association Name="FK_Visitas_MotivoConsultas">
+          <End Type="Dermasoft_ProModel.MotivoConsulta" Role="MotivoConsultas" Multiplicity="0..1" />
+          <End Type="Dermasoft_ProModel.Visita" Role="Visita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotivoConsultas">
+              <PropertyRef Name="IdMotivoConsulta" />
+            </Principal>
+            <Dependent Role="Visita">
+              <PropertyRef Name="IdMotivoConsulta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notas_Visitas1">
+          <End Type="Dermasoft_ProModel.Visita" Role="Visita" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Nota" Role="Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visita">
+              <PropertyRef Name="IdVisita" />
+            </Principal>
+            <Dependent Role="Nota">
+              <PropertyRef Name="IdVisita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="IdPaciente" />
+          </Key>
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Dni" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <Property Name="IdObraSocial" Type="Int32" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NroAfiliado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alergias" Relationship="Dermasoft_ProModel.FK_Alergias_Pacientes" FromRole="Paciente" ToRole="Alergia" />
+          <NavigationProperty Name="Antecedentes" Relationship="Dermasoft_ProModel.FK_Antecedentes_Pacientes" FromRole="Paciente" ToRole="Antecedente" />
+          <NavigationProperty Name="MotivoConsultas" Relationship="Dermasoft_ProModel.FK_MotivoConsultas_Pacientes" FromRole="Paciente" ToRole="MotivoConsulta" />
+          <NavigationProperty Name="ObraSocial" Relationship="Dermasoft_ProModel.FK_Pacientes_Obra" FromRole="Paciente" ToRole="ObraSocial" />
+        </EntityType>
+        <Association Name="FK_Alergias_Pacientes">
+          <End Type="Dermasoft_ProModel.Paciente" Role="Paciente" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Alergia" Role="Alergia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="IdPaciente" />
+            </Principal>
+            <Dependent Role="Alergia">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Antecedentes_Pacientes">
+          <End Type="Dermasoft_ProModel.Paciente" Role="Paciente" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Antecedente" Role="Antecedente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="IdPaciente" />
+            </Principal>
+            <Dependent Role="Antecedente">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MotivoConsultas_Pacientes">
+          <End Type="Dermasoft_ProModel.Paciente" Role="Paciente" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.MotivoConsulta" Role="MotivoConsulta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="IdPaciente" />
+            </Principal>
+            <Dependent Role="MotivoConsulta">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pacientes_Obra">
+          <End Type="Dermasoft_ProModel.ObraSocial" Role="ObraSocial" Multiplicity="1" />
+          <End Type="Dermasoft_ProModel.Paciente" Role="Paciente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObraSocial">
+              <PropertyRef Name="IdObraSocial" />
+            </Principal>
+            <Dependent Role="Paciente">
+              <PropertyRef Name="IdObraSocial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Dermasoft_ProModelStoreContainer" CdmEntityContainer="DermasoftEntities">
+          <EntitySetMapping Name="ObraSocials">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.ObraSocial">
+              <MappingFragment StoreEntitySet="ObraSocial">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="NombreObraSocial" ColumnName="NombreObraSocial" />
+                <ScalarProperty Name="IdObraSocial" ColumnName="IdObraSocial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rols">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Rol">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="ApellidoUsuario" ColumnName="ApellidoUsuario" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArchivoImagens">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.ArchivoImagen">
+              <MappingFragment StoreEntitySet="ArchivoImagen">
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="IdVisita" ColumnName="IdVisita" />
+                <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alergias">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Alergia">
+              <MappingFragment StoreEntitySet="Alergias">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="IdAlergia" ColumnName="IdAlergia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoNota">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.TipoNota">
+              <MappingFragment StoreEntitySet="TipoNota">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idTipoNota" ColumnName="idTipoNota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Antecedentes">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Antecedente">
+              <MappingFragment StoreEntitySet="Antecedentes">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descipcion" ColumnName="Descipcion" />
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="IdAntecedente" ColumnName="IdAntecedente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notas">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Nota">
+              <MappingFragment StoreEntitySet="Notas">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdTipoNota" ColumnName="IdTipoNota" />
+                <ScalarProperty Name="IdVisita" ColumnName="IdVisita" />
+                <ScalarProperty Name="IdNota" ColumnName="IdNota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visitas">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Visita">
+              <MappingFragment StoreEntitySet="Visitas">
+                <ScalarProperty Name="IdMotivoConsulta" ColumnName="IdMotivoConsulta" />
+                <ScalarProperty Name="FechaVisita" ColumnName="FechaVisita" />
+                <ScalarProperty Name="IdVisita" ColumnName="IdVisita" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MotivoConsultas">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.MotivoConsulta">
+              <MappingFragment StoreEntitySet="MotivoConsultas">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="AntecedentesEA" ColumnName="AntecedentesEA" />
+                <ScalarProperty Name="MotivoConsulta1" ColumnName="MotivoConsulta" />
+                <ScalarProperty Name="IdMotivoConsulta" ColumnName="IdMotivoConsulta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacientes">
+            <EntityTypeMapping TypeName="Dermasoft_ProModel.Paciente">
+              <MappingFragment StoreEntitySet="Pacientes">
+                <ScalarProperty Name="NroAfiliado" ColumnName="NroAfiliado" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="IdObraSocial" ColumnName="IdObraSocial" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

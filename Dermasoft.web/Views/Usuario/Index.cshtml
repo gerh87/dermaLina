@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dermasoft</title>
+    <link href=@Url.Content("~/Content/normalize.css") rel="stylesheet" />
+    <link href="~/Content/materialize.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/materialize.min.js"></script>
+    <script src="~/Scripts/TweenMax.min.js"></script>
+
+    <style>
+        body {
+            padding-top: 10%;
+        }
+
+        #logo {
+            display: block;
+            width: 200px;
+            margin: 5px auto;
+        }
+    </style>
+</head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <img id="logo" src="~/Content/img/logo.png" alt="logo" />
+                </div>
+            </div>
+            <div id="form" class="row">
+                <div class="col l6 offset-l3 m12 s12">
+                    @using (Html.BeginForm("Index", "Usuario"))
+                    {
+                        <div class="input-field col l12 m12 s12">
+                            <i class="mdi-action-account-circle prefix pink-text darken-1"></i>
+                            <input type="text" name="Usuario" id="Usuario" autocomplete="off">
+                        </div>
+
+                        <div class="input-field col l12 m12 s12">
+                            <i class="mdi-action-help prefix pink-text darken-1"></i>
+                            <input type="password" name="Contrasenia" id="Contrasenia">
+                        </div>
+                        <button class="btn waves-effect waves-light btn pink darken-1 right" type="submit">Ingresar</button>
+                    }
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            $(document).ready(function () {
+                window.TweenLite.from($("#logo"), 2, { autoAlpha: 0 });
+            })
+        </script>
+    </body>
+</html>

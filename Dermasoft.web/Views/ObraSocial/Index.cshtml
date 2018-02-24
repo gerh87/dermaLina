@@ -1,0 +1,49 @@
+﻿@model List<Dermasoft.web.Models.ObraSocialModel>
+
+@{
+    ViewBag.Title = "Obras Sociales";
+}
+<div id="Result">
+    <div class="center">
+        @Html.ActionLink(" ", "ObraSocialCreate", "ObraSocial",
+                new { idObraSocial = 0 },
+        new { @class = "btn btn-floating btn-large waves-effect waves-light green mdi-content-add" })
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col l8 offset-l2 m12 s12">
+            <div class="card pink">
+                <div class="white-text center-align">
+                    @Html.ValidationSummary("", new { style = "padding: 10px 0;" })
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="card card-divide">
+                    <div class="card-content">
+                        <h5>
+                            @item.NombreObraSocial
+                        </h5>
+
+                        
+                        @Ajax.ActionLink(" ", "ObraSocialDelete", "ObraSocial",
+                            new { idObraSocial = item.IdObraSocial },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                LoadingElementId = "loading",
+                                Confirm = "Seguro desea borrar esta Obra Social?",
+                                UpdateTargetId = "Result"
+                            },
+                            new { @class = "waves-effect waves-light action mdi-action-delete" })
+                        @Html.ActionLink(" ", "ObraSocialCreate", "ObraSocial",
+                            new { idObraSocial = item.IdObraSocial },
+                            new { @class = "waves-effect waves-light action mdi-content-create" })
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

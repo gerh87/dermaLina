@@ -1,0 +1,51 @@
+﻿@model Dermasoft.web.Models.PacienteModel
+@{
+    ViewBag.Title = "Paciente";
+}
+<div class="row">
+    <div class="col l6 offset-l3 m12 s12 card searcher-container">
+        @using (Ajax.BeginForm(
+            "PacienteFind",
+            "Paciente",
+            null,
+            new AjaxOptions
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "Result",
+                LoadingElementId = "loading",
+                OnComplete = "$('#query').val('');"
+            }))
+        {
+            <div class="row">
+                <div class="col l10 m10 s10">
+                    <input type="text" id="query" name="query" onfocus="loadComplete('query', '@Url.Action("PacienteAutoComplete", "Paciente")' , 1 , 10 )" />
+                </div>
+                <div class="col l2 m2 s2">
+                    <button type="submit" class="btn btn-floating btn-large waves-effect waves-light pink right"><i class="mdi-action-search"></i></button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="Result">
+
+    <div class="row">
+        <div class="col l4 offset-l2 m12 s12">
+            <div class="big-circle">
+                <div class="big-title">Pacientes</div>
+                <div class="big-info"> @Model.PacienteCount </div>
+            </div>
+        </div>
+        <div class="col l4 m12 s12">
+            <div class="big-circle">
+                <div class="big-title">Obras Sociales</div>
+                <div class="big-info"> @Model.ObraSocialCount </div>
+            </div>
+        </div>
+    </div>
+    <div class="line-shadow"></div>
+    @Html.Partial("_PacienteLista", Model.Pacientes)
+</div>

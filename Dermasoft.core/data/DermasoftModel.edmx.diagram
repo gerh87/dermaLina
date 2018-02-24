@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9716b01fde2843df95521dc983c29cac" Name="Diagram1" ZoomLevel="102">
+        <EntityTypeShape EntityType="Dermasoft_ProModel.ObraSocial" Width="1.5" PointX="0.5" PointY="3.5" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Rol" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Usuario" Width="1.5" PointX="3" PointY="6" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Usuarios_Roles" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.ArchivoImagen" Width="1.5" PointX="10.625" PointY="1.25" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Alergia" Width="1.5" PointX="4.875" PointY="0.5" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.TipoNota" Width="1.5" PointX="8.25" PointY="7.625" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Antecedente" Width="1.5" PointX="0.5" PointY="0.75" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Nota" Width="1.5" PointX="12.125" PointY="4.75" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Visita" Width="1.5" PointX="9.25" PointY="4.5" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_ArchivoImagen_Visitas" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Notas_TipoNota" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Notas_Visitas" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.MotivoConsulta" Width="2.625" PointX="5.125" PointY="3.25" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Visitas_MotivoConsultas" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Notas_Visitas1" />
+        <EntityTypeShape EntityType="Dermasoft_ProModel.Paciente" Width="1.5" PointX="2.75" PointY="9.625" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Alergias_Pacientes" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Antecedentes_Pacientes" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_MotivoConsultas_Pacientes" />
+        <AssociationConnector Association="Dermasoft_ProModel.FK_Pacientes_Obra" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,125 @@
+﻿@{
+    var isAdmin = MvcApplication.IsAdmin;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dermasoft</title>
+    <link href=@Url.Content("~/Content/reset.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/materialize.min.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/jquery.tagsinput.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Scripts/dropzone/css/basic.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Scripts/dropzone/css/dropzone.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/jquery.datetimepicker.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/Site.css") rel="stylesheet" />
+
+    <link href=@Url.Content("~/Scripts/lightbox/css/lightbox.css") rel="stylesheet" />
+
+    <script src=@Url.Content("~/Scripts/jquery-1.10.2.min.js")></script>
+    <script src=@Url.Content("~/Scripts/jquery.validate.min.js")></script>
+    <script src=@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")></script>
+    <script src=@Url.Content("~/Scripts/jquery.autocomplete.min.js")></script>
+    <script src=@Url.Content("~/Scripts/TweenMax.min.js")></script>
+    <script src=@Url.Content("~/Scripts/materialize.min.js")></script>
+    <script src=@Url.Content("~/Scripts/modernizr-2.6.2.js")></script>
+    <script src=@Url.Content("~/Scripts/jquery.datetimepicker.js")></script>
+    <script src=@Url.Content("~/Scripts/jquery.tagsinput.js")></script>
+
+    <script src=@Url.Content("~/Scripts/slider-master/js/jssor.slider.min.js")></script>
+    <script src=@Url.Content("~/Scripts/lightbox/js/lightbox.min.js")></script>
+    <script src=@Url.Content("~/Scripts/jquery.mosaicflow.min.js")></script>
+</head>
+<body>
+    
+    <a href="#" class="scrollToTop btn btn-floating waves-effect waves-light green"> <i class="mdi-editor-publish"></i></a>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper pink">
+                <a href=@Url.Action("Index", "Paciente") class="brand-logo"> <span style="font-weight: bolder;">Lina</span> Dermatologia </a>
+                <ul id="menu" class="right hide-on-med-and-down">
+                    <li class="waves-effect waves-light">
+                        <a href=@Url.Action("Index", "Paciente") class="white-text">
+                            <i class="mdi-action-accessibility left"></i> Pacientes
+                        </a>
+                    </li>
+                    <li class="waves-effect waves-light">
+                        <a href=@Url.Action("Index", "ObraSocial") class="white-text">
+                            <i class="mdi-action-book left"></i> Obras Sociales
+                        </a>
+                    </li>
+                    @if (isAdmin)
+                    {
+                        <li>
+                            <a href=@Url.Action("UsuarioLista", "Usuario") class="white-text">
+                                <i class="mdi-action-account-circle left"></i> Usuarios
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a href=@Url.Action("Logout", "Usuario") class="white-text">
+                            <i class="mdi-action-settings-power left"></i> Salir
+                        </a>
+                    </li>
+
+                </ul>
+
+                <a href="#" class="button-collapse" data-activates="nav-mobile">
+                    <i class="mdi-navigation-menu"></i>
+                </a>
+                <ul id="nav-mobile" class="left side-nav">
+                    <li class="grey-text center-align"> MENU </li>
+                    <li>
+                        <a href=@Url.Action("Index", "Paciente")>
+                            <i class="mdi-action-accessibility left"></i> Pacientes
+                        </a>
+                    </li>
+                    <li>
+                        <a href=@Url.Action("Index", "ObraSocial")>
+                            <i class="mdi-action-book left"></i> Obras Sociales
+                        </a>
+                    </li>
+                    @if (isAdmin)
+                    {
+                        <li>
+                            <a href=@Url.Action("UsuarioLista", "Usuario")>
+                                <i class="mdi-action-account-circle left"></i> Usuarios
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a href=@Url.Action("Logout", "Usuario")>
+                            <i class="mdi-action-settings-power left"></i> Salir
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="loading" class="progress white">
+                <div class="indeterminate blue"></div>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <div id="poprender" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Agree</a>
+        </div>
+    </div>
+
+    <script src=@Url.Content("~/Scripts/Global.js")></script>
+    <script src=@Url.Content("~/Scripts/dropzone/dropzone.js")></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

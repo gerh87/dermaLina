@@ -1,0 +1,221 @@
+﻿@model Dermasoft.web.Models.MotivoConsultaModel
+@{
+    var listExistPaciente = (Model.Alergias.Count > 0) || (Model.Antecedentes.Count > 0);
+    var listExist = (Model.Notas.Count > 0) || (Model.Examenes.Count > 0) || (Model.Conductas.Count > 0);
+    var pos = (listExist || listExistPaciente) ? "col l7 m12 s12" : "col l8 offset-l2 m12 s12";
+}
+
+<div id="Result" class="row">
+    <div class='@pos'>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title activator pink-text text-darken-1"> @ViewBag.Action Consulta <i class="mdi-image-camera-alt right"></i></span>
+                <div class="clearfix" style="border-bottom: 1px solid #E91E63; padding-top: 20px;"></div>
+                <div class="space-v-lg"></div>
+                @using (Html.BeginForm("MotivoConsultaSave", "MotivoConsulta", null, FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IdMotivoConsulta)
+                    @Html.HiddenFor(model => model.IdPaciente)
+                    @Html.HiddenFor(model => model.ID)
+
+                    @Html.LabelFor(model => model.MotivoConsultaTitulo)
+                    @Html.TextBoxFor(model => model.MotivoConsultaTitulo)
+                    @Html.ValidationMessageFor(model => model.MotivoConsultaTitulo)
+
+                    @Html.LabelFor(model => model.AntecedentesEA)
+                    @Html.TextBoxFor(model => model.AntecedentesEA)
+                    @Html.ValidationMessageFor(model => model.AntecedentesEA)
+
+                    <div class="card-split"> NUEVAS NOTAS </div>
+                    @Html.TextBoxFor(model => model.NotasNuevas, new { @class = "z-depth-3" })
+
+                    <div class="card-split"> NUEVOS EXAMENES </div>
+                    @Html.TextBoxFor(model => model.ExamenesNuevos, new { @class = "z-depth-3" })
+
+                    <div class="card-split"> NUEVAS CONDUCTAS </div>
+                    @Html.TextBoxFor(model => model.ConductasNuevas, new { @class = "z-depth-3" })
+
+                    <div class="center">
+                        <div class="space-v-lg"></div>
+                        <a href=@Url.Action("Index", "Paciente") class="btn btn-floating btn-large waves-effect waves-light red left"> <i class="mdi-content-clear"></i></a>
+
+                        @if (Model.IdMotivoConsulta > 0)
+                        {
+                            <a href=@Url.Action("MotivoConsultaInfo", "MotivoConsulta", new {id = Model.IdMotivoConsulta, idPaciente = Model.IdPaciente}) class="btn btn-floating btn-large waves-effect waves-light blue"> <i class="mdi-action-receipt"></i></a>
+                        }
+                        <button type="submit" class="btn btn-floating btn-large waves-effect waves-light green right"><i class="mdi-action-done"></i> </button>
+                        <div class="clearfix"></div>
+                    </div>
+
+                }
+            </div>
+            <div class="card-reveal">
+                <span class="card-title pink-text text-darken-1">Subir Imagenes<i class="mdi-navigation-close right"></i></span>
+                <div class="clearfix" style="border-bottom: 1px solid #E91E63; padding-top: 20px;"></div>
+
+                <a id="imgContainer" class="waves-effect waves-light btn pink white-text" style="display: block; margin: 0 auto; padding: 0; width: 75px;"><i class="mdi-image-camera-alt centered"></i></a>
+
+                @using (Html.BeginForm("MotivoConsultaSaveImage", "MotivoConsulta", null, FormMethod.Post, new
+                {
+                    enctype = "multipart/form-data",
+                    @class = "dropzone",
+                    @id = "dropzoneForm"
+                }))
+                {
+
+                    <div class="clearfix"></div>
+                    <div id="imgTemplate" class=" dropzone-previews"></div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    @if (listExistPaciente || listExist)
+    {
+        <div class="col l5 m12 s12 tab-info">
+            @if (listExistPaciente)
+            {
+                <div class="space-v-md"></div>
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#Alergias">Alergias</a></li>
+                    <li class="tab col s3"><a href="#Antecedentes">Antecedentes</a></li>
+                </ul>
+                <div id="Alergias">
+                    @if (Model.Alergias.Any())
+                    {
+                        <ul class="collection">
+                            @foreach (var item in Model.Alergias)
+                            {
+                                <li class="collection-item">
+                                    @item.Descripcion
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div id="Antecedentes">
+                    @if (Model.Antecedentes.Any())
+                    {
+                        <ul class="collection">
+                            @foreach (var item in Model.Antecedentes)
+                            {
+                                <li class="collection-item">
+                                    @item.Descripcion
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+            @if (listExist)
+            {
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#Notas">Notas</a></li>
+                    <li class="tab col s3"><a href="#ExamenFisico">Examen Fisico</a></li>
+                    <li class="tab col s3"><a href="#Conducta">Conducta</a></li>
+                </ul>
+                <div id="Notas">
+                    @if (Model.Notas.Count > 0)
+                    {
+                        <ul class="collection">
+                            @foreach (var item in Model.Notas)
+                            {
+                                <li class="collection-item">
+                                    @item.Descripcion
+                                    <span class="secondary-content grey-text lighten-5">@item.Fecha.ToShortDateString()</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div id="ExamenFisico">
+                    @if (Model.Examenes.Any())
+                    {
+                        <ul class="collection">
+                            @foreach (var item in Model.Examenes)
+                            {
+                                <li class="collection-item">
+                                    @item.Descripcion
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div id="Conducta">
+                    @if (Model.Conductas.Any())
+                    {
+                        <ul class="collection">
+                            @foreach (var item in Model.Conductas)
+                            {
+                                <li class="collection-item">
+                                    @item.Descripcion
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+            @Html.Partial("~/Views/ArchivoImagen/_ArchivoImagenList-litle.cshtml", Model.Imagenes)
+
+        </div>
+    }
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#NotasNuevas').tagsInput({
+            'defaultText': '+ nota',
+            'height': '120px',
+            'width': '100%',
+            'removeWithBackspace': true,
+            'placeholderColor': '#f8bbd0'
+        });
+
+        $('#ExamenesNuevos').tagsInput({
+            'defaultText': '+ exam...',
+            'height': '120px',
+            'width': '100%',
+            'removeWithBackspace': true,
+            'placeholderColor': '#f8bbd0'
+        });
+
+        $('#ConductasNuevas').tagsInput({
+            'defaultText': '+ cond...',
+            'height': '120px',
+            'width': '100%',
+            'removeWithBackspace': true,
+            'placeholderColor': '#f8bbd0'
+        });
+    });
+</script>
+
+@section scripts{
+    <script type="text/javascript">
+        Dropzone.options.dropzoneForm = {
+            uploadMultiple: false,
+            previewsContainer: "#imgTemplate",
+            clickable: "#imgContainer",
+            init: function () {
+                this.on("maxfilesexceeded", function (data) {
+                    var res = eval('(' + data.xhr.responseText + ')');
+                });
+                this.on("addedfile", function (file) {
+                    var removeButton = Dropzone.createElement("<button class='btn btn-floating waves-effect waves-light red right'><i class='mdi-content-clear'></i> </button>");
+                    var _this = this;
+                    removeButton.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        _this.removeFile(file);
+                    });
+                    file.previewElement.appendChild(removeButton);
+                });
+            }
+        };
+    </script>
+}

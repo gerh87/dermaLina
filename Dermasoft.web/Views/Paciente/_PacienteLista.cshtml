@@ -1,0 +1,73 @@
+﻿@model List<Dermasoft.web.Models.PacienteModel>
+@{
+    var isAdmin = MvcApplication.IsAdmin;              
+}
+<div class="space-v-md"></div>
+<div class="center">
+    @Html.ActionLink(" ", "PacienteCreate", "Paciente",
+        new { id = 0 },
+        new { @class = "btn btn-floating btn-large waves-effect waves-light green mdi-content-add" })
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col l6 m12 s12">
+            <ul class="collection with-header">
+                <li class="collection-header pink card-divide">
+                    <h5 class="white-text truncate hide-on-small-and-down">@item.Apellido @item.Nombre</h5>
+                    <h5 class="white-text truncate center-align hide-on-med-and-up" style="width: 100% !important;">@item.Apellido @item.Nombre</h5>
+                    <div class="icons">
+                        @if (!item.ContainsConsultas && isAdmin)
+                        {
+                            @Ajax.ActionLink(" ", "PacienteDelete", "Paciente",
+                            new { idPaciente = item.IdPaciente },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                LoadingElementId = "loading",
+                                Confirm = "Seguro desea borrar este paciente?",
+                                UpdateTargetId = "Result"
+                            },
+                            new { @class = "waves-effect waves-light action mdi-action-delete" })
+                        }
+                        @Html.ActionLink(" ", "PacienteCreate", "Paciente",
+                            new { id = item.IdPaciente },
+                            new { @class = "waves-effect waves-light action mdi-content-create" })
+                        @Ajax.ActionLink(" ", "PacienteGet", "Paciente",
+                            new { idPaciente = item.IdPaciente },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "GET",
+                                InsertionMode = InsertionMode.Replace,
+                                LoadingElementId = "loading",
+                                UpdateTargetId = "Result"
+                            },
+                            new { @class = "waves-effect waves-light action mdi-action-info" })
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="collection-item">
+                    <span class="title">Fecha de Nacimiento</span>
+                    <span>@item.FechaNacimiento.ToShortDateString()</span>
+                </li>
+                <li class="collection-item">
+                    <span class="title">Edado</span>
+                    <span>@item.Edad</span>
+                </li>
+                <li class="collection-item">
+                    <span class="title">Teléfono</span>
+                    <span> @item.Telefono </span>
+                </li>
+                <li class="collection-item">
+                    <span class="title">Dni</span>
+                    <span>@item.Dni</span>
+                </li>
+            </ul>
+        </div>
+    }
+</div>
+<script src="~/Scripts/Global.js"></script>

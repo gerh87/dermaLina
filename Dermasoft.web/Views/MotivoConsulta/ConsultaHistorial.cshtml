@@ -1,0 +1,82 @@
+﻿@using System.Activities.Expressions
+@model Dermasoft.web.Models.MotivoConsultaModel
+@{
+    ViewBag.Title = "Historial";
+    var count = 0;
+}
+<script src=@Url.Content("~/Scripts/Global.js")></script>
+<div class="card">
+    <div class="card-content">
+        <h4 class="center-align">Historial de @Model.MotivoConsultaTitulo</h4>
+
+        @foreach (var visita in Model.Visitas)
+        {
+            count++;
+            <ul class="collection">
+                <li class="collection-item pink lighten-1 white-text"> Visita Nº @count  <span class="right" > @visita.FechaVisita.ToShortDateString() </span>  </li>
+                <li class="collection-item">
+                    <div class="row">
+                        <div class="col l3 m12 s12">
+                            <ul class="collection">
+                                <li class="collection-item grey lighten-3"> NOTAS </li>
+                                @if (visita.Notas.Count > 0)
+                                {
+                                    foreach (var nota in visita.Notas)
+                                    {
+                                        <li class="collection-item"> @nota.Descripcion </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="collection-item red-text"> no contiene notas </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col l3 m12 s12">
+                            <ul class="collection">
+                                <li class="collection-item grey lighten-3"> EXAMENES FISICOS </li>
+                                @if (visita.Examenes.Count > 0)
+                                {
+                                    foreach (var nota in visita.Examenes)
+                                    {
+                                        <li class="collection-item"> @nota.Descripcion </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="collection-item red-text"> no contiene examenes</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col l3 m12 s12">
+                            <ul class="collection">
+                                <li class="collection-item grey lighten-3"> CONDUCTAS </li>
+                                @if (visita.Conductas.Count > 0)
+                                {
+                                    foreach (var nota in visita.Conductas)
+                                    {
+                                        <li class="collection-item"> @nota.Descripcion </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="collection-item red-text"> no contiene conductas</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col l3 m12 s12">
+                            @Html.Partial("~/Views/ArchivoImagen/_ArchivoImagenList-litle.cshtml", visita.Imagenes)
+                        </div>
+                    </div>
+
+                    
+                </li>
+            </ul>
+        }
+
+        <div class="center">
+            <div class="space-v-md"></div>
+            <a href=@Url.Action("MotivoConsultaCreate", "MotivoConsulta", new { id = Model.IdMotivoConsulta, idPaciente = Model.IdPaciente}) class="btn btn-floating btn-large waves-effect waves-light blue"> <i class="mdi-content-forward"></i></a>
+        </div>
+    </div>
+</div>

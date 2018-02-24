@@ -1,0 +1,41 @@
+﻿@model Dermasoft.web.Models.UsuarioModel
+
+<div class="row">
+    <div class="col l6 offset-l3 m12 s12">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="center-align"> @ViewBag.Action Usuario </h4>
+                @using (Html.BeginForm("UsuarioSave", "Usuario"))
+                {
+                    @Html.HiddenFor(m => Model.IdUsuario)
+
+                    @Html.LabelFor(x => Model.NombreUsuario)
+                    @Html.TextBoxFor(x => Model.NombreUsuario)
+                    @Html.ValidationMessageFor(x => Model.NombreUsuario)
+
+                    @Html.LabelFor(x => Model.ApellidoUsuario)
+                    @Html.TextBoxFor(x => Model.ApellidoUsuario)
+                    @Html.ValidationMessageFor(x => Model.ApellidoUsuario)
+
+                    @Html.LabelFor(x => Model.Usuario)
+                    @Html.TextBoxFor(x => Model.Usuario)
+                    @Html.ValidationMessageFor(x => Model.Usuario)
+
+                    @Html.LabelFor(x => Model.ContraseniaNueva1)
+                    @Html.PasswordFor(x => Model.ContraseniaNueva1)
+                    @Html.ValidationMessageFor(x => Model.ContraseniaNueva1)
+
+                    @Html.LabelFor(x => Model.ContraseniaNueva2)
+                    @Html.PasswordFor(x => Model.ContraseniaNueva2)
+                    @Html.ValidationMessageFor(x => Model.ContraseniaNueva2)
+
+                    @Html.DropDownListFor(x => Model.Rol.IdRol, new SelectList(Model.Roles, "Value", "Text"))
+
+                    <div class="space-v-lg"></div>
+                    <a href="@Url.Action("UsuarioLista", "Usuario")" class="btn btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-clear"></i></a>
+                    <button type="submit" class="btn btn-floating btn-large waves-effect waves-light green right"><i class="mdi-action-done"></i> </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

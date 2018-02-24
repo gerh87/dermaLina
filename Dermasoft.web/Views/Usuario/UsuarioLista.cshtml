@@ -1,0 +1,52 @@
+﻿@model List<Dermasoft.web.Models.UsuarioModel>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+<div id="Result">
+    <div class="center">
+        @Html.ActionLink(" ", "UsuarioGet", "Usuario",
+        new { idUsuario = 0 },
+        new { @class = "btn btn-floating btn-large waves-effect waves-light green mdi-content-add" })
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col l8 offset-l2 m12 s12">
+            <div class="card pink">
+                <div class="white-text center-align">
+                    @Html.ValidationSummary("", new { style = "padding: 10px 0;" })
+                </div>
+            </div>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <div class="card card-divide">
+                    <div class="card-content">
+                        @Html.HiddenFor(m => Model[i].IdUsuario)
+
+
+                        <h5 class="pink-text left-border hide-on-small-and-down">@Model[i].Usuario</h5>
+                        <h5 class="truncate" >@Model[i].NombreUsuario @Model[i].ApellidoUsuario</h5>
+
+                        @Ajax.ActionLink(" ", "UsuarioDelete", "Usuario",
+                            new { idUsuario = Model[i].IdUsuario },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                LoadingElementId = "loading",
+                                Confirm = "Seguro desea borrar esta Obra Social?",
+                                UpdateTargetId = "Result"
+                            },
+                         new { @class = "waves-effect waves-light action mdi-action-delete" })
+                        @Html.ActionLink(" ", "UsuarioGet", "Usuario",
+                            new { idUsuario = @Model[i].IdUsuario },
+                         new { @class = "waves-effect waves-light action mdi-content-create" })
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

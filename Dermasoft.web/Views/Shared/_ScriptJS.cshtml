@@ -1,0 +1,46 @@
+﻿<script type="text/javascript">
+@if(!String.IsNullOrEmpty(ViewBag.Script))
+{
+    @Html.Raw(ViewBag.Script)
+}
+@if(!String.IsNullOrEmpty(ViewBag.Error))
+{
+    <text>setTimeout("alert('</text>@Html.Raw(ViewBag.Error)<text>')", 500); </text>
+}
+@if(!String.IsNullOrEmpty(ViewBag.Alert))
+{
+    <text>setTimeout("alert('</text>@Html.Raw(ViewBag.Alert)<text>')", 500); </text>
+}
+@if(ViewBag.Refresh != null)
+{
+   @:location.reload(true);
+} 
+@if(!String.IsNullOrEmpty(ViewBag.Redirect))
+{
+  <text>location = "</text>@ViewBag.Redirect<text>";</text>
+}
+@if(ViewBag.Close != null)
+{
+  if(!String.IsNullOrEmpty(ViewBag.DialogForm ))
+  {
+<text>CloseForm('</text>@ViewBag.DialogForm<text>');</text>
+  }
+  else
+  {
+@:CloseForm();      
+  }
+
+}
+@if (!String.IsNullOrEmpty(ViewBag.CloseAndRedirect))
+{
+<text>var redirect = "</text>@ViewBag.CloseAndRedirect<text>";</text>
+<text>    
+    $("#pop-body").dialog({
+        close: function (event, ui) {
+            $("#Result").html("");
+            location = redirect;
+        }
+    });
+</text>
+}
+</script>

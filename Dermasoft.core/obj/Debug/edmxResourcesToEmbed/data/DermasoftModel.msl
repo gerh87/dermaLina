@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Dermasoft_ProModelStoreContainer" CdmEntityContainer="DermasoftEntities">
+    <EntitySetMapping Name="ObraSocials">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.ObraSocial">
+        <MappingFragment StoreEntitySet="ObraSocial">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="NombreObraSocial" ColumnName="NombreObraSocial" />
+          <ScalarProperty Name="IdObraSocial" ColumnName="IdObraSocial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rols">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Rol">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+          <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+          <ScalarProperty Name="ApellidoUsuario" ColumnName="ApellidoUsuario" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoImagens">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.ArchivoImagen">
+        <MappingFragment StoreEntitySet="ArchivoImagen">
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="IdVisita" ColumnName="IdVisita" />
+          <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+          <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Alergias">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Alergia">
+        <MappingFragment StoreEntitySet="Alergias">
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+          <ScalarProperty Name="IdAlergia" ColumnName="IdAlergia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoNota">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.TipoNota">
+        <MappingFragment StoreEntitySet="TipoNota">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="idTipoNota" ColumnName="idTipoNota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Antecedentes">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Antecedente">
+        <MappingFragment StoreEntitySet="Antecedentes">
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Descipcion" ColumnName="Descipcion" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+          <ScalarProperty Name="IdAntecedente" ColumnName="IdAntecedente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notas">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Nota">
+        <MappingFragment StoreEntitySet="Notas">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="IdTipoNota" ColumnName="IdTipoNota" />
+          <ScalarProperty Name="IdVisita" ColumnName="IdVisita" />
+          <ScalarProperty Name="IdNota" ColumnName="IdNota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Visitas">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Visita">
+        <MappingFragment StoreEntitySet="Visitas">
+          <ScalarProperty Name="IdMotivoConsulta" ColumnName="IdMotivoConsulta" />
+          <ScalarProperty Name="FechaVisita" ColumnName="FechaVisita" />
+          <ScalarProperty Name="IdVisita" ColumnName="IdVisita" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MotivoConsultas">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.MotivoConsulta">
+        <MappingFragment StoreEntitySet="MotivoConsultas">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+          <ScalarProperty Name="AntecedentesEA" ColumnName="AntecedentesEA" />
+          <ScalarProperty Name="MotivoConsulta1" ColumnName="MotivoConsulta" />
+          <ScalarProperty Name="IdMotivoConsulta" ColumnName="IdMotivoConsulta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pacientes">
+      <EntityTypeMapping TypeName="Dermasoft_ProModel.Paciente">
+        <MappingFragment StoreEntitySet="Pacientes">
+          <ScalarProperty Name="NroAfiliado" ColumnName="NroAfiliado" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="IdObraSocial" ColumnName="IdObraSocial" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Dni" ColumnName="Dni" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

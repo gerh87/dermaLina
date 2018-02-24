@@ -1,0 +1,143 @@
+﻿@model Dermasoft.web.Models.PacienteModel
+@{
+ 
+      var  existList = Model.Alergias.Any() || Model.Antecedentes.Any();
+
+
+    var pos = existList ? "col l6" : "col l6 offset-l3";
+}
+<div class="row">
+    <div class='@pos'>
+        <div class="card">
+            <div class="card-content">
+                <h4 class="center-align"> @ViewBag.Action Paciente</h4>
+                @using (Html.BeginForm("PacienteSave", "Paciente"))
+                {
+                    @Html.HiddenFor(model => model.IdPaciente)
+
+
+                    @Html.LabelFor(model => model.Nombre)
+                    @Html.TextBoxFor(model => model.Nombre)
+                    @Html.ValidationMessageFor(model => model.Nombre)
+
+                    @Html.LabelFor(model => model.Apellido)
+                    @Html.TextBoxFor(model => model.Apellido)
+                    @Html.ValidationMessageFor(model => model.Apellido)
+
+                    @Html.LabelFor(model => model.Dni)
+                    @Html.TextBoxFor(model => model.Dni)
+                    @Html.ValidationMessageFor(model => model.Dni)
+
+                    @Html.LabelFor(model => model.FechaNacimiento)
+                    @Html.TextBoxFor(model => model.FechaNacimiento)
+                    @Html.ValidationMessageFor(model => model.FechaNacimiento)
+
+                    @Html.LabelFor(model => model.Edad)
+                    @Html.TextBoxFor(model => model.Edad)
+
+                    @Html.LabelFor(model => model.Direccion)
+                    @Html.TextBoxFor(model => model.Direccion)
+                    @Html.ValidationMessageFor(model => model.Direccion)
+
+                    @Html.LabelFor(model => model.Telefono)
+                    @Html.TextBoxFor(model => model.Telefono)
+                    @Html.ValidationMessageFor(model => model.Telefono)
+
+                    <div class="card-split">ANTECEDENTES NUEVOS</div>
+                    @Html.TextBoxFor(model => model.AntecedentesNuevos, new { @class = "z-depth-3" })
+
+                    <div class="card-split">ALERGIAS NUEVAS</div>
+                    @Html.TextBoxFor(model => model.AlergiasNuevas, new { @class = "z-depth-3" })
+
+                    <div class="space-v-md"></div>
+
+                    @Html.LabelFor(model => model.IdObraSocial)
+                    @Html.DropDownListFor(model => model.IdObraSocial, new SelectList(Model.ObrasSociales, "Value", "Text", Model.IdObraSocial), new { @class = "orange-text" })
+
+                    @Html.LabelFor(model => model.NroAfiliado)
+                    @Html.TextBoxFor(model => model.NroAfiliado, new { @class = "z-depth-3" })
+                    <div class="space-v-lg"></div>
+
+                    <a href="@Url.Action("Index", "Paciente")" class="btn btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-clear"></i></a>
+                    <button type="submit" class="btn btn-floating btn-large waves-effect waves-light green right"><i class="mdi-action-done"></i> </button>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (existList)
+    {
+        <div class="col l4 m12 s12 tab-info">
+            <div class="space-v-md"></div>
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#Antecedentes">Antecedentes</a></li>
+                <li class="tab col s3"><a href="#Alergias">Alergias</a></li>
+            </ul>
+
+            <div id="Antecedentes">
+                @if (Model.Antecedentes.Any())
+                {
+                    <ul class="collection">
+                        @foreach (var item in Model.Antecedentes)
+                        {
+                            <li class="collection-item"> @item.Descripcion </li>
+                        }
+                    </ul>
+                }
+            </div>
+            <div id="Alergias">
+                @if (Model.Alergias.Any())
+                {
+                    <ul class="collection">
+                        @foreach (var item in Model.Alergias)
+                        {
+                            <li class="collection-item"> @item.Descripcion </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var maxYear = new Date();
+        maxYear = maxYear.getYear();
+        maxYear = maxYear - 1;
+        jQuery('#FechaNacimiento').datetimepicker({
+            lang: 'es',
+            timepicker: false,
+            format: 'd/m/Y',
+            startDate: '1990/01/01',
+            maxDate: maxYear + '/01/01',
+            onChangeDateTime: function (dp, $input) {
+                var dob = new Date(dp);
+                var today = new Date();
+                var age = today.getYear() - dob.getYear();
+                $("#Edad").val(age);
+            }
+        });
+
+        $(function () {
+            var fn = $("#FechaNacimiento");
+            fn.val(fn.val().substr(0, 10));
+
+            $('#AntecedentesNuevos').tagsInput({
+                'defaultText': '+ ante...',
+                'height': '80px',
+                'width': '100%',
+                'removeWithBackspace': true,
+                'placeholderColor': '#f8bbd0'
+            });
+            $('#AlergiasNuevas').tagsInput({
+                'defaultText': '+ alergia',
+                'height': '80px',
+                'width': '100%',
+                'removeWithBackspace': true,
+                'placeholderColor': '#f8bbd0'
+            });
+        });
+    </script>
+}
+<script src="~/Scripts/Global.js"></script>

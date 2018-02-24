@@ -1,0 +1,59 @@
+﻿@model List<Dermasoft.web.Models.ArchivoImagenModel>
+
+<style type="text/css">
+    .mosaicflow__column {
+        float: left;
+    }
+    .item:hover {
+        -ms-opacity: 0.8;
+        opacity: 0.8;
+    }
+    .item img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    
+    .item a {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .img-date {
+        float: left;
+        position: relative;
+        top: -50px;
+        color: white;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: black;
+    }
+</style>
+
+@if (Model.Any())
+{
+    <div class="img-container">
+        @foreach (var imagen in Model)
+        {
+            var url = Server.MapPath(string.Format("~/UploadFile/Images/imagepath/{0}", imagen.NombreArchivo));
+            var exist = File.Exists(url);
+            if (exist)
+            {
+                <div class="item">
+                    <a href='@Url.Content("~/UploadFile/Images/imagepath/" + @imagen.NombreArchivo)' data-lightbox="imgs" data-title="@imagen.Fecha.ToShortDateString()">
+                        <img src='@Url.Content("~/UploadFile/Images/imagepath/" + @imagen.NombreArchivo)' alt="img" height="300" />
+                        @*<span class="img-date"> @imagen.Fecha.ToShortDateString() </span>*@
+                    </a>
+                </div>
+            }
+        }
+    </div>
+}
+
+<script type="text/javascript">
+    $('.img-container').mosaicflow({
+        itemSelector: '.item',
+        minItemWidth: 310,
+        itemHeightCalculation : 'attribute'
+    });
+</script>

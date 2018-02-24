@@ -1,0 +1,87 @@
+﻿@model Dermasoft.web.Models.PacienteModel
+@{
+    ViewBag.Title = "Resultados de Busqueda";
+    var isAdmin = MvcApplication.IsAdmin;
+}
+<div class="row">
+    <div class="col l8 offset-l2 m12 s12">
+        <ul class="collection with-header">
+            <li class="collection-header pink">
+                <h5 class="white-text"><span class="hide-on-small-and-down">Ficha de </span><span class="white-text truncate">@Model.Apellido @Model.Nombre</span> </h5>
+                <div class="icons">
+                    @Html.ActionLink(" ", "PacienteCreate", "Paciente",
+                        new { id = Model.IdPaciente },
+                        new { @class = "waves-effect waves-light action mdi-content-create" })
+                </div>
+                <div class="clearfix"></div>
+            </li>
+            <li class="collection-item">
+                <span class="title">Fecha de Nacimiento</span>
+                <span>@Model.FechaNacimiento.ToShortDateString()</span>
+            </li>
+            <li class="collection-item">
+                <span class="title">Direccion</span>
+                <span> @Model.Direccion </span>
+            </li>
+            <li class="collection-item">
+                <span class="title">Teléfono</span>
+                <span> @Model.Telefono </span>
+            </li>
+            <li class="collection-item">
+                <span class="title">Dni</span>
+                <span>@Model.Dni</span>
+            </li>
+            <li class="collection-item">
+                <span class="title">Obra Social</span>
+                <span>@Model.ObraSocial.NombreObraSocial</span>
+            </li>
+            <li class="collection-item">
+                <span class="title">Número de Afiliado</span>
+                <span>@Model.NroAfiliado</span>
+                <div class="clearfix"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@if (!isAdmin)
+{
+    return;
+}
+
+@if (Model.Consultas.Count <= 0)
+{
+    <div class="space-v-lg"></div>
+    <h5 class="center-align">
+        No contiene consultas @Html.ActionLink(" agregue una ", "MotivoConsultaCreate", "MotivoConsulta",
+        new { id = 0, idPaciente = Model.IdPaciente },
+        new { @class = "pink-text" })
+    </h5>
+    return;
+}
+
+<div class="row">
+    <div class="col l8 offset-l2 m12 s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#Consultas">Consultas</a></li>
+            <li class="tab col s3"><a href="#Galeria">Galeria</a></li>
+        </ul>
+    </div>
+    <div id="Consultas" class="col s12">@Html.Partial("~/Views/MotivoConsulta/_ConsultaLista.cshtml", Model.Consultas)</div>
+    <div id="Galeria" class="col s12">
+        <div class="row">
+            <div id="img-container"></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="space-v-lg"></div>
+
+            @foreach (var consulta in Model.Consultas)
+            {
+                @Html.Partial("~/Views/ArchivoImagen/_ArchivoImagenList.cshtml", consulta.Imagenes)
+            }
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Global.js"></script>

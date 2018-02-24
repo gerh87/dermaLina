@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Consulta";
+}
+<script src=@Url.Content("~/Scripts/Global.js")></script>
+<script>
+    $(function () {
+        setTimeout(function () {
+            window.location.replace('@Url.Action("Index", "Paciente")');
+        }, 4000);
+    });
+</script>
+<div class="space-v-lg"></div>
+<div class="center">
+    <span class=" center pink-text">
+        Guardando...
+    </span>
+    <div class="progress white">
+        <div class="indeterminate blue"></div>
+    </div>
+</div>
+
