@@ -36,25 +36,21 @@ namespace Dermasoft.web.Controllers
         public ActionResult MotivoConsultaSaveImage()
         {
             var ID = Session["ID"].ToString();
-            foreach (string fileName in Request.Files)
+            foreach (string upload in Request.Files)
             {
-                HttpPostedFileBase file = Request.Files[fileName];
-                var extension = file.ContentType.Split('/')[1];
-                var name = Guid.NewGuid().ToString().Substring(0, 10) + "." + extension;
-                if (file != null && file.ContentLength > 0)
+                if (Request.Files[upload].FileName != "")
                 {
-                    var originalDirectory = new DirectoryInfo(string.Format("{0}\\Images", ConfigurationManager.AppSettings["DirectorioUpload"])); //Server.MapPath(@"\")
-                    string pathString = Path.Combine(originalDirectory.ToString(), "imagepath");
-                    if (!Directory.Exists(pathString))
-                        Directory.CreateDirectory(pathString);
-                    var rute = string.Format("{0}\\{1}", pathString, name);
-                    file.SaveAs(rute);
+                    var file = Request.Files[upload];
+                    var extention = file.ContentType.Split('/')[1];
 
+                    string path = AppDomain.CurrentDomain.BaseDirectory + "UploadFile/Images/imagepath";
+                    string fileName = Guid.NewGuid().ToString().Substring(0, 10) + "." + extention;
+                    Request.Files[upload].SaveAs(Path.Combine(path, fileName));
                     var image = new ArchivoImagenModel
                     {
                         ContentType = ID,
-                        Extension = extension,
-                        NombreArchivo = name
+                        Extension = extention,
+                        NombreArchivo = fileName
                     };
                     ArchivoImagenModel.Save(image);
                 }
