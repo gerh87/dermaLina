@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Dermasoft.web.Models;
 using Microsoft.Ajax.Utilities;
+using Dermasoft.web.Helpers;
 
 namespace Dermasoft.web.Controllers
 {
@@ -21,8 +22,8 @@ namespace Dermasoft.web.Controllers
         {
             var exist = UsuarioModel.Exist(Usuario, Contrasenia);
             if (exist != null)
-            {
-                FormsAuthentication.SetAuthCookie(Usuario, false);
+            {              
+                Response.Cookies.Add(Authentication.Instance.CreateCookie(Usuario));
                 return RedirectToAction("Index", "Paciente");
             }
             return View();
